@@ -1,0 +1,22 @@
+{
+  "CurrentDay": 0,
+  "CurrentWave": 4,
+  "Player": {
+    "Experience": 150,
+    "Level": 6,
+    "CurrentWeapon": {
+      "Name": "SodaSprayer",
+      "AttackLevel": 15,
+      "Type": "SodaSprayer"
+    },
+    "Inventory": {},
+    "Name": "Chubbo",
+    "MaxHealth": 150,
+    "CurrentHealth": 150,
+    "AttackLevel": 100,
+    "Luck": 5,
+    "Buffs": [],
+    "Debuffs": []
+  },
+  "Map": 0
+}
