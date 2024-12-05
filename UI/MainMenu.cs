@@ -1,14 +1,20 @@
 public static class MainMenu
 {
+    // Mendapatkan instance dari game dan player
     private static Game game = Game.Instance;
     private static Player player = Player.Instance;
 
+    // Menyimpan tingkat kesulitan saat ini
     private static Difficulty currentDifficulty = Difficulty.Normal;
+
+    // Metode untuk menampilkan menu utama
     public static void StartMenu()
     {
         Console.Clear();
+        // Menampilkan informasi hari saat ini
         Console.WriteLine("[CAMP]" + " Day " + game.GetCurrentDay());
         Console.WriteLine("Hello Chubbo!, What would you like to do now?");
+        // Menampilkan opsi menu
         Console.WriteLine("1. Start Game");
         Console.WriteLine("2. Load Last Game Save File");
         Console.WriteLine("3. Show Stats");
@@ -38,10 +44,12 @@ public static class MainMenu
         }
     }
 
+    // Metode untuk menampilkan statistik pemain
     public static void ShowStats()
     {
         Console.Clear();
         Console.WriteLine("Your Current Stats: \n");
+        // Menampilkan informasi statistik pemain
         Console.WriteLine("Name: " + player.Name);
         Console.WriteLine("Weapon: " + player.CurrentWeapon.Name + " (Attack: " + player.CurrentWeapon.AttackLevel + ")");
         Console.WriteLine("Level: " + player.Level);
@@ -55,6 +63,7 @@ public static class MainMenu
         StartMenu();
     }
 
+    // Metode untuk mengatur tingkat kesulitan
     public static void SetDifficulty()
     {
         Console.Clear();
@@ -87,6 +96,7 @@ public static class MainMenu
         StartMenu();
     }
 
+    // Metode untuk mendapatkan tingkat kesulitan saat ini
     public static Difficulty GetCurrentDifficulty()
     {
         return currentDifficulty;

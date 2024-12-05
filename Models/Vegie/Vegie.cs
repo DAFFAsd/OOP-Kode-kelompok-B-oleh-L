@@ -2,13 +2,14 @@ public class Vegie : Character
 {
     private Random random = new Random();
 
+    // Konstruktor untuk menginisialisasi objek Vegie
     public Vegie(string name, int maxHealth, int attackLevel, int luck)
         : base(name, maxHealth, attackLevel, luck)
     {
         CurrentHealth = MaxHealth;
     }
 
-
+    // Metode statis untuk mendapatkan kesehatan maksimal berdasarkan kesulitan
     private static int GetMaxHealth(Difficulty difficulty)
     {
         return difficulty switch
@@ -20,6 +21,7 @@ public class Vegie : Character
         };
     }
 
+    // Metode statis untuk mendapatkan level serangan berdasarkan kesulitan
     private static int GetAttackLevel(Difficulty difficulty)
     {
         return difficulty switch
@@ -31,13 +33,14 @@ public class Vegie : Character
         };
     }
 
+    // Metode untuk menyerang pemain
     public void Attack(Player player)
     {
-        // Use the modified attack level from GetModifiedAttack()
-        int damage = GetModifiedAttack(); // This comes from the Character base class
+        // Gunakan level serangan yang dimodifikasi dari GetModifiedAttack()
+        int damage = GetModifiedAttack(); // Ini berasal dari kelas dasar Character
         string attackType = "";
 
-        // 50% chance to hit or miss
+        // 50% kemungkinan untuk mengenai atau meleset
         if (random.Next(2) == 0)
         {
             attackType = "swings at";
@@ -59,7 +62,7 @@ public class Vegie : Character
             player.TakeDamage(damage);
         }
 
-        // Process buffs and debuffs after attack
+        // Proses buff dan debuff setelah serangan
         ProcessBuffsAndDebuffs();
 
         Thread.Sleep(1000);

@@ -2,8 +2,10 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+// Konverter untuk enum Maps ke JSON
 public class MapsConverter : JsonConverter<Maps>
 {
+    // Membaca nilai JSON dan mengonversinya ke enum Maps
     public override Maps Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         string value = reader.GetString();
@@ -19,45 +21,46 @@ public class MapsConverter : JsonConverter<Maps>
         };
     }
 
+    // Menulis nilai enum Maps ke JSON
     public override void Write(Utf8JsonWriter writer, Maps value, JsonSerializerOptions options)
     {
         writer.WriteStringValue(value.ToString());
     }
 }
 
-
-
+// Kelas dasar untuk semua area peta
 public class MapArea
 {
     private static MapArea _instance;
 
-    // Public property to get the current active map
+    // Properti publik untuk mendapatkan peta aktif saat ini
     public static MapArea Instance => _instance;
 
-    [JsonConverter(typeof(MapsConverter))] // Add this attribute if needed
+    [JsonConverter(typeof(MapsConverter))] // Menambahkan atribut ini jika diperlukan
     public Maps Map { get; set; }
 
     public List<Vegie> Vegies { get; set; }
 
-    // Protected constructor to restrict instantiation
+    // Konstruktor yang dilindungi untuk membatasi instansiasi
     protected MapArea(Maps map, List<Vegie> vegies)
     {
         Map = map;
         Vegies = vegies;
     }
+
+    // Implementasi default untuk mendapatkan mini boss, bisa di-override di setiap map
     public virtual List<Vegie> GetMiniBosses()
     {
-        // Default implementation, bisa di-override di setiap map
         return new List<Vegie>();
     }
 
-    // Method to set the active map dynamically
+    // Metode untuk mengatur peta aktif secara dinamis
     public static void SetActiveMap(MapArea map)
     {
         _instance = map;
     }
 
-    // Generate a random Vegie from the map
+    // Menghasilkan Vegie secara acak dari peta
     public Vegie GenerateVegie()
     {
         int randomIndex = new Random().Next(0, Vegies.Count);
@@ -65,7 +68,7 @@ public class MapArea
         return new Vegie(prototype.Name, prototype.MaxHealth, prototype.AttackLevel, prototype.Luck);
     }
 
-    // Virtual method for area descriptions
+    // Metode virtual untuk deskripsi area
     public virtual void DisplayDescription()
     {
         Console.WriteLine("Gedagedigedagedaoo");

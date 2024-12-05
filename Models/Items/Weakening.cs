@@ -1,17 +1,20 @@
 public class WeakeningPotion : Item
 {
+    // Properti untuk menyimpan durasi efek potion
     public int Duration { get; private set; }
 
+    // Konstruktor untuk menginisialisasi WeakeningPotion
     public WeakeningPotion(string name, int quantity, int duration = 1) 
         : base(name, quantity)
     {
         Duration = duration;
     }
 
+    // Metode untuk menggunakan potion
     public override void Use()
     {
-        // Prompt user to choose a target Vegie
-        var vegies = BattleMenu.CurrentVegies; // You'll need to modify BattleMenu to track current vegies
+        // Meminta pengguna untuk memilih target Vegie
+        var vegies = BattleMenu.CurrentVegies; // Anda perlu memodifikasi BattleMenu untuk melacak vegies saat ini
         
         Console.WriteLine("Choose a Vegie to weaken:");
         for (int i = 0; i < vegies.Count; i++)
@@ -28,12 +31,12 @@ public class WeakeningPotion : Item
         {
             Vegie targetVegie = vegies[targetIndex - 1];
             
-            // Apply a debuff that reduces attack to 1
+            // Menerapkan debuff yang mengurangi serangan menjadi 1
             targetVegie.AddDebuff(new Debuff("Weakened", Duration, attackReduction: targetVegie.AttackLevel - 1));
             
             Console.WriteLine($"{targetVegie.Name} has been weakened!");
             
-            // Decrease item quantity
+            // Mengurangi jumlah item
             DecreaseQuantity(1);
         }
         else

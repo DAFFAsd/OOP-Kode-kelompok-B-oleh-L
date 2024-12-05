@@ -3,11 +3,16 @@ using System.Collections.Generic;
 
 public class Quest
 {
+    // Properti untuk menyimpan nama quest
     public string Name { get; private set; }
+    // Properti untuk mengecek apakah quest sudah selesai
     public bool IsCompleted { get; private set; }
+    // Delegasi untuk mengecek kondisi penyelesaian quest
     public Func<bool> CompletionCheck { get; private set; }
+    // Delegasi untuk memberikan reward saat quest selesai
     public Action OnCompletionReward { get; private set; }
 
+    // Konstruktor untuk menginisialisasi quest
     public Quest(string name, Func<bool> completionCheck, Action onCompletionReward)
     {
         Name = name;
@@ -16,6 +21,7 @@ public class Quest
         IsCompleted = false;
     }
 
+    // Metode untuk mencoba menyelesaikan quest
     public void TryComplete()
     {
         if (!IsCompleted && CompletionCheck())
@@ -28,16 +34,20 @@ public class Quest
 
 public class WiseDuck
 {
+    // Singleton pattern untuk memastikan hanya ada satu instance WiseDuck
     private static readonly Lazy<WiseDuck> _instance = new Lazy<WiseDuck>(() => new WiseDuck());
     public static WiseDuck Instance => _instance.Value;
 
+    // Properti untuk menyimpan daftar quest
     public List<Quest> Quests { get; private set; }
 
+    // Konstruktor privat untuk menginisialisasi quest
     private WiseDuck()
     {
         InitializeQuests();
     }
 
+    // Metode untuk menginisialisasi daftar quest
     private void InitializeQuests()
     {
         Quests = new List<Quest>
@@ -54,6 +64,7 @@ public class WiseDuck
         };
     }
 
+    // Metode untuk berinteraksi dengan pemain
     public void InteractWithPlayer()
     {
         Console.WriteLine("Wise Duck waddles up to you...");
@@ -72,16 +83,18 @@ public class WiseDuck
     }
 }
 
-// Extension method for Game class to track last defeated miniboss
+// Metode ekstensi untuk kelas Game untuk melacak miniboss terakhir yang dikalahkan
 public static class GameExtensions
 {
     private static string _lastDefeatedMiniBoss;
 
+    // Metode untuk mengatur miniboss terakhir yang dikalahkan
     public static void SetLastDefeatedMiniBoss(this Game game, string miniBossName)
     {
         _lastDefeatedMiniBoss = miniBossName;
     }
 
+    // Metode untuk mendapatkan miniboss terakhir yang dikalahkan
     public static string GetLastDefeatedMiniBoss(this Game game)
     {
         return _lastDefeatedMiniBoss;

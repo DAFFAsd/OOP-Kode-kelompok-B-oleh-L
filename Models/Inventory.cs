@@ -4,16 +4,18 @@ public class Inventory
 {
     public List<Item> items = new List<Item>();
 
+    // Konstruktor untuk menginisialisasi inventaris dengan item default
     public Inventory()
     {
-        AddItem(new Potion("Health Potion", 3, 50)); // Reduced quantity for balance
-        AddItem(new StrengthPotion("Strength Potion", 2, 20, 2)); // Attack boost of 20 for 2 turns
+        AddItem(new Potion("Health Potion", 3, 50)); // Mengurangi jumlah untuk keseimbangan
+        AddItem(new StrengthPotion("Strength Potion", 2, 20, 2)); // Peningkatan serangan sebesar 20 untuk 2 giliran
         AddItem(new WeakeningPotion("Weakening Potion", 2)); // 2 weakening potions
     }
 
+    // Metode untuk menambahkan item ke dalam inventaris
     public void AddItem(Item item)
     {
-        // Check if item already exists
+        // Periksa apakah item sudah ada
         var existingItem = items.FirstOrDefault(i => i.Name == item.Name);
         if (existingItem != null)
         {
@@ -25,12 +27,13 @@ public class Inventory
         }
     }
 
+    // Metode untuk menghapus item dari inventaris
     public void RemoveItem(Item item)
     {
         items.Remove(item);
     }
 
-    // Change ToString to a method that returns a string or just display inventory.
+    // Ubah ToString menjadi metode yang mengembalikan string atau hanya menampilkan inventaris.
     public void DisplayInventory()
     {
         Console.Clear();
@@ -42,7 +45,7 @@ public class Inventory
 
         foreach (Item item in items)
         {
-            Console.WriteLine(item.ToString());  // Calls the ToString method of Item
+            Console.WriteLine(item.ToString());  // Memanggil metode ToString dari Item
         }
     }
 }

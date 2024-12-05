@@ -1,16 +1,21 @@
 using System.Text.Json; // Pastikan ini diimpor
 using System.Text.Json.Serialization;
 
+// Class Game
 public class Game
 {
+    // Field - Field yang ada pada class Game
     private Player player;
     private int currentDay = 0;
     public int currentWave = 0;
 
     private static readonly Lazy<Game> _instance = new Lazy<Game>(() => new Game());
     public static Game Instance => _instance.Value;
+
+    // Field untuk menyimpan nama miniboss terakhir yang dikalahkan
     public void SaveGame()
     {
+        // Membuat objek GameState untuk menyimpan state game saat ini
         GameState state = new GameState
         {
             CurrentDay = GetCurrentDay(),
@@ -19,32 +24,37 @@ public class Game
             Map = MapArea.Instance.Map
         };
 
+        // Serialisasi objek GameState ke dalam format JSON
         string json = JsonSerializer.Serialize(state, new JsonSerializerOptions
         {
             WriteIndented = true, // Agar output lebih terbaca
         });
 
+        // Menyimpan JSON ke dalam file
         File.WriteAllText("savegame.json", json); // Simpan sebagai file JSON
         Console.WriteLine("Game saved successfully!");
     }
 
+    // Method untuk memuat game
     public void LoadGame()
     {
+        // Memeriksa apakah file savegame.json ada
         if (!File.Exists("savegame.json"))
         {
             Console.WriteLine("No saved game found.");
             return;
         }
 
+        // Membaca JSON dari file
         string json = File.ReadAllText("savegame.json");
         GameState state = JsonSerializer.Deserialize<GameState>(json);
 
-        // Restore game state
+        // Mengembalikan state game dari objek GameState
         currentDay = state.CurrentDay;
         currentWave = state.CurrentWave - 1;
         player = state.Player;
 
-        // Restore map
+        // Mengembalikan state map
         switch (state.Map)
         {
             case Maps.Leafy_Lagoon:
@@ -67,31 +77,36 @@ public class Game
                 MapArea.SetActiveMap(new LeafyLagoon());
                 break;
         }
-
+        
         Console.WriteLine("Game loaded successfully!");
         StartDay();
     }
-        public Game()
-        {
-            // Implement different Maps here
-            MapArea.SetActiveMap(new LeafyLagoon());
-            MapArea.Instance.DisplayDescription();
-            player = Player.Instance;
-        }
-        public List<Vegie> GenerateVegies()
-        {
-            Random random = new Random();
-            int enemyCount = random.Next(1, 4); // 1-3 enemies
-            
-            List<Vegie> vegies = new List<Vegie>();
-            for (int i = 0; i < enemyCount; i++)
-            {
-                vegies.Add(MapArea.Instance.GenerateVegie());
-            }
-            
-            return vegies;
-        }
+        
+    // Konstruktor untuk class Game
+    public Game()
+    {
+        // Implementasi map awal
+        MapArea.SetActiveMap(new LeafyLagoon());
+        MapArea.Instance.DisplayDescription();
+        player = Player.Instance;
+    }
 
+    // Method untuk menghasilkan vegie
+    public List<Vegie> GenerateVegies()
+    {
+        Random random = new Random();
+        int enemyCount = random.Next(1, 4); // 1-3 musuh
+        
+        List<Vegie> vegies = new List<Vegie>();
+        for (int i = 0; i < enemyCount; i++)
+        {
+            vegies.Add(MapArea.Instance.GenerateVegie());
+        }
+        
+        return vegies;
+    }
+
+    // Method untuk memulai hari
     public void StartDay()
     {
         AddWave();
@@ -103,16 +118,15 @@ public class Game
             List<Vegie> miniBosses = MapArea.Instance.GetMiniBosses();
             BattleMenu.StartBattle(player, miniBosses);
             string miniBossName = miniBosses[0].Name;
-            // Track last defeated miniboss
             this.SetLastDefeatedMiniBoss(miniBossName);
 
-            // Check quest completion after battle
+            // Memeriksa apakah ada quest yang terpenuhi
             foreach (var quest in WiseDuck.Instance.Quests)
             {
                 quest.TryComplete();
             }
 
-            // Interact with Wise Duck after a miniboss battle
+            // Interaksi dengan WiseDuck setelah mengalahkan miniboss
             WiseDuck.Instance.InteractWithPlayer();
 
             // Setelah kalahkan miniboss, pindah ke map berikutnya
@@ -136,7 +150,7 @@ public class Game
                     break;
                 case Maps.The_Salad_Bar:
                     EndGame();
-                    return; // Exit method to prevent recursive StartDay() call
+                    return; // Keluar dari method
                     break;
                 default:
                     Console.WriteLine("No next map available.");
@@ -151,6 +165,7 @@ public class Game
         StartDay();
     }
 
+    // Method untuk mereset game
     public void ResetGame()
     {
         currentDay = 0;
@@ -160,6 +175,7 @@ public class Game
         Console.WriteLine("Game has been reset!");
     }
 
+    // Method untuk mengakhiri game
     private void EndGame()
     {
         Console.Clear();
@@ -170,12 +186,12 @@ public class Game
         Console.WriteLine($"Total Experience: {player.GetExperience()}");
         Console.WriteLine("\nThanks for playing Veggie Adventures!");
         
-        // Option to restart or exit
+        // Opsi untuk memulai ulang atau keluar
         Console.WriteLine("\nPress R to Restart With NG+, or any other key to Exit");
         var key = Console.ReadKey();
         if (key.Key == ConsoleKey.R)
         {
-            // Reset game logic here
+            // Logika reset game di sini
             Game.Instance.ResetGame();
         }
         else
@@ -184,21 +200,25 @@ public class Game
         }
     }
 
+    // Method untuk mereset wave
     public void resetWave()
     {
         currentWave = 0;
     }
 
+    // Method untuk menambah wave
     public void AddWave()
     {
         currentWave++;
     }
 
+    // Method untuk menambah hari
     public void AddDay()
     {
         currentDay++;
     }
 
+    // Method untuk mendapatkan hari saat ini
     public int GetCurrentDay()
     {
         return currentDay;

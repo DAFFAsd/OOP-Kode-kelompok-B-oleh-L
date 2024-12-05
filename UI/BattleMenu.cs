@@ -3,7 +3,10 @@ using System.Reflection.PortableExecutable;
 //app/ui/BattleMenu.cs
 public static class BattleMenu
 {   
+    // Menyimpan daftar vegie saat ini
     public static List<Vegie> CurrentVegies { get; private set; }
+
+    // Metode untuk memulai pertarungan
     public static void StartBattle(Player player, List<Vegie> vegies)
     {
         Console.Clear();
@@ -12,17 +15,18 @@ public static class BattleMenu
         Console.WriteLine("Press any key to start the battle...");
         Console.ReadKey();
 
+        // Loop pertarungan sampai pemain atau semua vegie mati
         while (!player.IsDead() && !AreAllVegiesDead(vegies))
         {
-            // Print player and vegies stats
             Console.Clear();
+            // Menampilkan informasi gelombang dan giliran
             Console.WriteLine("Wave: " + Game.Instance.currentWave + "\tTurn " + Combat.TurnNumber);
             Console.WriteLine(" Level: " + player.GetLevel() + "\t\t" + "Experience: " + player.GetExperience() + "/" + player.GetExpereinceToNextLevel());
             
-            // Display player health
+            // Menampilkan kesehatan pemain
             Console.WriteLine(player.Name + " HP: " + player.CurrentHealth + " / " + player.MaxHealth);
             
-            // Display all vegies' health
+            // Menampilkan kesehatan semua vegie
             for (int i = 0; i < vegies.Count; i++)
             {
                 Console.WriteLine($"Vegie {i+1} ({vegies[i].Name}): HP {vegies[i].CurrentHealth} / {vegies[i].MaxHealth}");
@@ -30,6 +34,7 @@ public static class BattleMenu
 
             Console.WriteLine("\n");
 
+            // Giliran pemain
             Console.WriteLine("Player turn");
             Console.WriteLine("1. Attack");
             Console.WriteLine("2. Use Skill");
@@ -57,7 +62,7 @@ public static class BattleMenu
                     break;
             }
 
-            // Vegie turns
+            // Giliran vegie
             foreach (var vegie in vegies.Where(v => !v.IsDead()))
             {
                 Console.WriteLine($"\n{vegie.Name}'s turn");
@@ -73,7 +78,7 @@ public static class BattleMenu
             Combat.AddTurn();
         }
 
-        // Battle won logic
+        // Logika kemenangan pertarungan
         if (player.IsDead())
         {
             Combat.EndDay();
@@ -91,11 +96,13 @@ public static class BattleMenu
         }
     }
 
+    // Metode untuk memeriksa apakah semua vegie mati
     private static bool AreAllVegiesDead(List<Vegie> vegies)
     {
         return vegies.All(v => v.IsDead());
     }
 
+    // Metode untuk memilih target dan menyerang
     private static void ChooseTargetAndAttack(Player player, List<Vegie> vegies)
     {
         Console.WriteLine("Choose a target:");
@@ -119,6 +126,7 @@ public static class BattleMenu
         }
     }
 
+    // Metode untuk menggunakan skill pemain
     private static void UsePlayerSkill(Player player, List<Vegie> vegies)
     {
         Console.WriteLine("Choose a skill:");
@@ -146,6 +154,7 @@ public static class BattleMenu
         }
     }
 
+    // Metode untuk memilih target vegie
     private static Vegie ChooseTargetVegie(List<Vegie> vegies)
     {
         Console.WriteLine("Choose a target:");
@@ -168,6 +177,8 @@ public static class BattleMenu
             Console.WriteLine("Invalid target!");
         }
     }
+
+    // Metode untuk menampilkan menu item
     public static void ItemMenu(Player player)
     {
         Console.Clear();
@@ -178,8 +189,6 @@ public static class BattleMenu
         if (int.TryParse(Console.ReadLine(), out int option) && option > 0 && option <= player.Inventory.items.Count)
         {
             Item selectedItem = player.Inventory.items[option - 1];
-
-            // Here you can add logic to use the selected item
             Console.WriteLine($"You chose to use {selectedItem.Name}.");
             selectedItem.Use();
         }
@@ -190,31 +199,30 @@ public static class BattleMenu
 
         Console.ReadKey();
     }
+
+    // Metode untuk menambahkan item acak ke inventaris pemain
     private static void AddRandomItemToInventory(Player player)
-{
-    // Tentukan daftar item yang mungkin diberikan
-    List<Item> possibleItems = new List<Item>
     {
-        new Potion("Health Potion", 1, 50),
-        new StrengthPotion("Strength Potion", 1, 20, 2),
-        new WeakeningPotion("Weakening Potion", 1)
-    };
+        List<Item> possibleItems = new List<Item>
+        {
+            new Potion("Health Potion", 1, 50),
+            new StrengthPotion("Strength Potion", 1, 20, 2),
+            new WeakeningPotion("Weakening Potion", 1)
+        };
 
-    // Hitung peluang berdasarkan nilai luck pemain
-    Random rand = new Random();
-    int chance = rand.Next(0, 100);
+        Random rand = new Random();
+        int chance = rand.Next(0, 100);
 
-    if (chance < player.Luck) // Luck menentukan probabilitas untuk mendapatkan item
-    {
-        // Pilih item secara acak dari daftar item yang mungkin
-        Item randomItem = possibleItems[rand.Next(possibleItems.Count)];
-        Console.WriteLine($"Congratulations! You found a {randomItem.Name}.");
-        player.Inventory.AddItem(randomItem); // Menambahkan item ke inventory
+        if (chance < player.Luck)
+        {
+            Item randomItem = possibleItems[rand.Next(possibleItems.Count)];
+            Console.WriteLine($"Congratulations! You found a {randomItem.Name}.");
+            player.Inventory.AddItem(randomItem);
+        }
+        else
+        {
+            Console.WriteLine("No items found right now...... Better luck next time!");
+        }
     }
-    else
-    {
-        Console.WriteLine("No items found right now...... Better luck next time!");
-    }
-}
 }
 

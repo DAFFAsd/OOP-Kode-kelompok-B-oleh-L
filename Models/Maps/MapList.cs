@@ -1,7 +1,9 @@
 public class LeafyLagoon : MapArea
 {
+    // Konstruktor untuk LeafyLagoon
     public LeafyLagoon() : base(Maps.Leafy_Lagoon, new List<Vegie>
     {
+        // Menambahkan Vegie ke dalam LeafyLagoon
         new VegieBuilder()
         .SetName("Letty the Lettuce")
         .SetMaxHealth(75)
@@ -18,9 +20,10 @@ public class LeafyLagoon : MapArea
         .Build(),
     })
     {
-        // Constructor Masih Empty, Bisa ditambah suatu saat
+        // Konstruktor masih kosong, bisa ditambah suatu saat
     }
 
+    // Menampilkan deskripsi LeafyLagoon
     public override void DisplayDescription()
     {
         Console.WriteLine("You are in the Leafy Lagoon... Don't let the still waters fool you!");
@@ -28,6 +31,7 @@ public class LeafyLagoon : MapArea
         Console.ReadKey();
     }
 
+    // Mendapatkan daftar mini boss di LeafyLagoon
     public override List<Vegie> GetMiniBosses()
     {
         return new List<Vegie>
@@ -43,10 +47,13 @@ public class LeafyLagoon : MapArea
     }
 }
 
+// Kelas untuk VeggieValley
 public class VeggieValley : MapArea
 {
+    // Konstruktor untuk VeggieValley
     public VeggieValley() : base(Maps.Veggie_Valley, new List<Vegie>
     {
+        // Menambahkan Vegie ke dalam VeggieValley
         new VegieBuilder()
         .SetName("Carrot Cavalier")
         .SetMaxHealth(60)
@@ -65,6 +72,7 @@ public class VeggieValley : MapArea
     {
     }
 
+    // Menampilkan deskripsi VeggieValley
     public override void DisplayDescription()
     {
         Console.WriteLine("Welcome to Veggie Valley, where the terrain is as diverse as its inhabitants!");
@@ -72,6 +80,7 @@ public class VeggieValley : MapArea
         Console.ReadKey();
     }
 
+    // Mendapatkan daftar mini boss di VeggieValley
     public override List<Vegie> GetMiniBosses()
     {
         return new List<Vegie>
@@ -87,10 +96,13 @@ public class VeggieValley : MapArea
     }
 }
 
+// Kelas untuk FruitField
 public class FruitField : MapArea
 {
+    // Konstruktor untuk FruitField
     public FruitField() : base(Maps.Fruit_Field, new List<Vegie>
     {
+        // Menambahkan Vegie ke dalam FruitField
         new VegieBuilder()
         .SetName("Apple Archer")
         .SetMaxHealth(70)
@@ -109,6 +121,7 @@ public class FruitField : MapArea
     {
     }
 
+    // Menampilkan deskripsi FruitField
     public override void DisplayDescription()
     {
         Console.WriteLine("Fruit Field stretches before you, ripe with adventure and danger!");
@@ -116,6 +129,7 @@ public class FruitField : MapArea
         Console.ReadKey();
     }
 
+    // Mendapatkan daftar mini boss di FruitField
     public override List<Vegie> GetMiniBosses()
     {
         return new List<Vegie>
@@ -131,10 +145,13 @@ public class FruitField : MapArea
     }
 }
 
+// Kelas untuk MushroomMeadow
 public class MushroomMeadow : MapArea
 {
+    // Konstruktor untuk MushroomMeadow
     public MushroomMeadow() : base(Maps.Mushroom_Meadow, new List<Vegie>
     {
+        // Menambahkan Vegie ke dalam MushroomMeadow
         new VegieBuilder()
         .SetName("Shiitake Sentry")
         .SetMaxHealth(85)
@@ -153,6 +170,7 @@ public class MushroomMeadow : MapArea
     {
     }
 
+    // Menampilkan deskripsi MushroomMeadow
     public override void DisplayDescription()
     {
         Console.WriteLine("Mushroom Meadow looms, its misty landscape hiding untold mysteries!");
@@ -160,6 +178,7 @@ public class MushroomMeadow : MapArea
         Console.ReadKey();
     }
 
+    // Mendapatkan daftar mini boss di MushroomMeadow
     public override List<Vegie> GetMiniBosses()
     {
         return new List<Vegie>
@@ -175,10 +194,13 @@ public class MushroomMeadow : MapArea
     }
 }
 
+// Kelas untuk TheSaladBar
 public class TheSaladBar : MapArea
 {
+    // Konstruktor untuk TheSaladBar
     public TheSaladBar() : base(Maps.The_Salad_Bar, new List<Vegie>
     {
+        // Menambahkan Vegie ke dalam TheSaladBar
         new VegieBuilder()
         .SetName("Crouton Commando")
         .SetMaxHealth(110)
@@ -197,6 +219,7 @@ public class TheSaladBar : MapArea
     {
     }
 
+    // Menampilkan deskripsi TheSaladBar
     public override void DisplayDescription()
     {
         Console.WriteLine("You have reached The Salad Bar - the final battleground where only the freshest survive!");
@@ -204,6 +227,7 @@ public class TheSaladBar : MapArea
         Console.ReadKey();
     }
 
+    // Mendapatkan daftar mini boss di TheSaladBar
     public override List<Vegie> GetMiniBosses()
     {
         return new List<Vegie>
