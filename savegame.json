@@ -1,20 +1,20 @@
 {
   "CurrentDay": 0,
-  "CurrentWave": 4,
+  "CurrentWave": 3,
   "Player": {
-    "Experience": 150,
-    "Level": 6,
+    "Experience": 1,
+    "Level": 4,
     "CurrentWeapon": {
-      "Name": "SodaSprayer",
-      "AttackLevel": 15,
-      "Type": "SodaSprayer"
+      "Name": "FryGun",
+      "AttackLevel": 10,
+      "Type": "FryGun"
     },
     "Inventory": {},
     "Name": "Chubbo",
-    "MaxHealth": 150,
-    "CurrentHealth": 150,
+    "MaxHealth": 110,
+    "CurrentHealth": 110,
     "AttackLevel": 100,
-    "Luck": 5,
+    "Luck": 11,
     "Buffs": [],
     "Debuffs": []
   },

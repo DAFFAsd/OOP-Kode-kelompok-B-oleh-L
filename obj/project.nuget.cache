@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "RQHOB5pzGIM=",
+  "dgSpecHash": "lMFKSRkx9N4=",
   "success": true,
-  "projectFilePath": "C:\\Users\\DAFFA_Jefferson\\Downloads\\CalorieVale-main\\app\\app.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\vinen\\OOP-Kode-kelompok-B-oleh-L\\app.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\vinen\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.11\\microsoft.netcore.app.ref.8.0.11.nupkg.sha512",
+    "C:\\Users\\vinen\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.11\\microsoft.windowsdesktop.app.ref.8.0.11.nupkg.sha512",
+    "C:\\Users\\vinen\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.11\\microsoft.aspnetcore.app.ref.8.0.11.nupkg.sha512",
+    "C:\\Users\\vinen\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.11\\microsoft.netcore.app.host.win-x64.8.0.11.nupkg.sha512"
+  ],
   "logs": []
 }
